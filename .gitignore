@@ -1,0 +1,47 @@
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Jupyter Notebook temporary files
+.ipynb_checkpoints/
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python environment and configuration
+.env
+.env.*
+
+# Temporary files and logs
+*.log
+*.tmp
+*.temp
+
+# Dataset files (large files)
+data/FER-2013/
+
+# Compressed landmark predictor
+*.dat.bz2
+
+# Pretrained dlib predictor
+assets/*.dat
+
+# Personal demo image
+demo_images/my.jpg
+
+# Large generated files
+models/*.joblib
+data/processed/dlib_normalized_landmarks.csv

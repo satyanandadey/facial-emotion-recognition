@@ -1,0 +1,5 @@
+representation,kernel,accuracy,macro_f1,training_time_minutes
+Unnormalized pixel coordinates,Linear SVM,0.4874944171505136,0.4121915365186078,5.619559641679128
+Unnormalized pixel coordinates,RBF SVM,0.4915140687807057,0.41771262241728546,2.1148505409558616
+Normalized coordinates,Linear SVM,0.4937982681956471,0.415182796528022,
+Normalized coordinates,RBF SVM,0.5478586473203838,0.4755467628810951,
