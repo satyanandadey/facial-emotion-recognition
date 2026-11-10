@@ -9,3 +9,5 @@ joblib
 Pillow
 jupyter
 ipykernel
+streamlit
+tensorflow
