@@ -3,7 +3,7 @@ streamlit
 numpy
 pandas
 opencv-python-headless
-dlib==20.0.1
+dlib-bin==20.0.1.post1
 scikit-learn==1.9.1
 joblib
 Pillow
