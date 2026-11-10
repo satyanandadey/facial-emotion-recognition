@@ -45,3 +45,18 @@ demo_images/my.jpg
 # Large generated files
 models/*.joblib
 data/processed/dlib_normalized_landmarks.csv
+
+# Trained models
+models/
+
+# Temporary files
+cache/
+artifacts/
+__pycache__/
+
+# Large dlib model files
+assets/*.dat
+assets/*.bz2
+
+# FER-2013 dataset
+data/FER-2013/

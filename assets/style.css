@@ -1,0 +1,332 @@
+/*
+  FACIAL EMOTION RECOGNITION
+  Dark cinematic theme — high contrast, accessible text
+*/
+
+/* ---------- Theme foundation ---------- */
+
+:root {
+    color-scheme: dark;
+    --page-bg: #0B1120;
+    --page-bg-soft: #101A2D;
+    --surface: #14213A;
+    --surface-raised: #192B49;
+    --surface-border: #2A3D5D;
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #A8B8CC;
+    --accent: #60A5FA;
+    --accent-strong: #3B82F6;
+    --accent-soft: rgba(96, 165, 250, 0.14);
+    --success: #86EFAC;
+    --warning: #FCD34D;
+}
+
+.stApp {
+    background:
+        radial-gradient(ellipse at 12% 0%, rgba(37, 99, 235, 0.18), transparent 36%),
+        radial-gradient(ellipse at 90% 15%, rgba(8, 145, 178, 0.12), transparent 32%),
+        var(--page-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Main content area */
+.main,
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"] {
+    background: transparent !important;
+}
+
+.block-container {
+    max-width: 1240px;
+    padding-top: 2.2rem;
+    padding-bottom: 3.5rem;
+}
+
+/* ---------- Typography and readable text ---------- */
+
+html,
+body,
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"] {
+    color: var(--text-primary) !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.stMarkdown h1,
+.stMarkdown h2,
+.stMarkdown h3,
+.stMarkdown h4 {
+    color: var(--text-primary) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em;
+}
+
+h1 {
+    letter-spacing: -0.04em;
+}
+
+p,
+li,
+.stMarkdown p,
+.stMarkdown li,
+.stText,
+[data-testid="stMarkdownContainer"] {
+    color: var(--text-secondary) !important;
+}
+
+strong,
+b {
+    color: #FFFFFF !important;
+}
+
+em {
+    color: #DCEBFF !important;
+}
+
+small,
+.stCaption,
+[data-testid="stCaption"],
+[data-testid="stWidgetLabel"],
+[data-testid="stWidgetLabel"] p,
+label {
+    color: var(--text-muted) !important;
+}
+
+a {
+    color: #93C5FD !important;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #BFDBFE !important;
+    text-decoration: underline;
+}
+
+/* ---------- Header and section separation ---------- */
+
+[data-testid="stHeader"] {
+    background: rgba(11, 17, 32, 0.72) !important;
+}
+
+hr,
+[data-testid="stDivider"] {
+    border-color: var(--surface-border) !important;
+}
+
+/* ---------- Metric cards ---------- */
+
+[data-testid="stMetric"] {
+    background: linear-gradient(145deg, #172844, #111D33) !important;
+    border: 1px solid var(--surface-border) !important;
+    border-radius: 16px !important;
+    padding: 18px 20px !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18) !important;
+}
+
+[data-testid="stMetricLabel"],
+[data-testid="stMetricLabel"] p {
+    color: var(--text-muted) !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="stMetricValue"],
+[data-testid="stMetricValue"] div {
+    color: var(--text-primary) !important;
+    font-weight: 750 !important;
+}
+
+[data-testid="stMetricDelta"] {
+    color: var(--success) !important;
+}
+
+/* ---------- Buttons ---------- */
+
+.stButton > button,
+.stDownloadButton > button {
+    background: linear-gradient(135deg, #3B82F6, #2563EB) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(147, 197, 253, 0.35) !important;
+    border-radius: 10px !important;
+    padding: 0.62rem 1.25rem !important;
+    font-weight: 650 !important;
+    transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.22) !important;
+}
+
+.stButton > button p,
+.stDownloadButton > button p {
+    color: #FFFFFF !important;
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover {
+    background: linear-gradient(135deg, #60A5FA, #3B82F6) !important;
+    border-color: #93C5FD !important;
+    color: #FFFFFF !important;
+    transform: translateY(-1px);
+    box-shadow: 0 9px 22px rgba(37, 99, 235, 0.3) !important;
+}
+
+.stButton > button:focus,
+.stDownloadButton > button:focus {
+    outline: 2px solid #BFDBFE !important;
+    outline-offset: 3px !important;
+}
+
+/* ---------- File uploader ---------- */
+
+[data-testid="stFileUploader"] {
+    background: rgba(20, 33, 58, 0.82) !important;
+    border: 1px solid var(--surface-border) !important;
+    border-radius: 16px !important;
+    padding: 14px !important;
+}
+
+[data-testid="stFileUploaderDropzone"] {
+    background: #101D32 !important;
+    border: 1px dashed #52729D !important;
+    border-radius: 12px !important;
+}
+
+[data-testid="stFileUploaderDropzone"] * {
+    color: var(--text-secondary) !important;
+}
+
+[data-testid="stFileUploaderDropzone"] button {
+    background: #1D4ED8 !important;
+    color: #FFFFFF !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+}
+
+[data-testid="stFileUploader"] section {
+    color: var(--text-secondary) !important;
+}
+
+/* ---------- Inputs and select controls ---------- */
+
+.stTextInput input,
+.stNumberInput input,
+.stTextArea textarea,
+.stSelectbox div[data-baseweb="select"] > div,
+.stMultiSelect div[data-baseweb="select"] > div {
+    background-color: #101D32 !important;
+    color: var(--text-primary) !important;
+    border-color: #3A5275 !important;
+    border-radius: 9px !important;
+}
+
+input,
+textarea {
+    color: var(--text-primary) !important;
+    caret-color: var(--accent) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #91A4BC !important;
+}
+
+/* Dropdown menu */
+[data-baseweb="popover"],
+[data-baseweb="menu"] {
+    background-color: #172844 !important;
+    border: 1px solid var(--surface-border) !important;
+}
+
+[data-baseweb="menu"] * {
+    color: var(--text-primary) !important;
+}
+
+/* ---------- Alerts and status messages ---------- */
+
+[data-testid="stAlert"] {
+    background: #14243D !important;
+    border: 1px solid #365273 !important;
+    border-radius: 12px !important;
+}
+
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] div {
+    color: var(--text-secondary) !important;
+}
+
+/* ---------- Charts and data displays ---------- */
+
+[data-testid="stVegaLiteChart"],
+[data-testid="stArrowVegaLiteChart"],
+[data-testid="stPlotlyChart"],
+[data-testid="stDataFrame"],
+[data-testid="stTable"] {
+    background: rgba(20, 33, 58, 0.72) !important;
+    border: 1px solid var(--surface-border) !important;
+    border-radius: 14px !important;
+    padding: 10px !important;
+}
+
+/* Vega chart labels and axis text */
+.vega-embed,
+.vega-embed svg,
+.vega-embed canvas {
+    background: transparent !important;
+}
+
+.vega-embed svg text {
+    fill: #DCE6F2 !important;
+}
+
+/* Dataframe text */
+[data-testid="stDataFrame"] *,
+[data-testid="stTable"] * {
+    color: var(--text-primary) !important;
+}
+
+/* ---------- Uploaded image ---------- */
+
+[data-testid="stImage"] img {
+    border: 1px solid var(--surface-border);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+}
+
+/* ---------- Expanders and tabs ---------- */
+
+[data-testid="stExpander"] {
+    background: rgba(20, 33, 58, 0.72) !important;
+    border: 1px solid var(--surface-border) !important;
+    border-radius: 12px !important;
+}
+
+[data-testid="stExpander"] summary,
+[data-testid="stExpander"] summary p {
+    color: var(--text-primary) !important;
+}
+
+button[data-baseweb="tab"] {
+    color: var(--text-muted) !important;
+}
+
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: #93C5FD !important;
+}
+
+/* ---------- Footer ---------- */
+
+[data-testid="stAppViewContainer"] footer {
+    color: var(--text-muted) !important;
+}
+
+/* ---------- Small-screen spacing ---------- */
+
+@media (max-width: 768px) {
+    .block-container {
+        padding-top: 1.2rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    [data-testid="stMetric"] {
+        padding: 14px !important;
+    }
+}

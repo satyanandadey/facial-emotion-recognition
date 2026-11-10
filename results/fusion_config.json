@@ -1,0 +1,18 @@
+{
+    "method": "weighted_probability_averaging",
+    "best_alpha": 0.6,
+    "cnn_weight": 0.6,
+    "geometry_weight": 0.4,
+    "selection_metric": "validation_macro_f1",
+    "validation_macro_f1": 0.5823308370876605,
+    "class_order": [
+        "angry",
+        "disgust",
+        "fear",
+        "happy",
+        "sad",
+        "surprise",
+        "neutral"
+    ],
+    "cnn_preprocessing": "48x48 grayscale, per-image min-max normalization to [0,255]"
+}
