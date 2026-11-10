@@ -1,13 +1,16 @@
 """
 Decision-level facial emotion fusion: Appearance CNN + dlib Geometry Random Forest.
 
-Expected project layout:
+Expected project layout (local artifacts are optional when using Hugging Face):
 MiniProject/
     assets/shape_predictor_68_face_landmarks.dat
     models/appearance_cnn_fixed.keras  (or appearance_cnn.keras)
     models/dlib_geometry_model_expanded.joblib
     results/fusion_config.json
     fusion_model.py
+
+For cloud deployment, missing artifacts are downloaded from the Hugging Face
+repository configured by HF_MODEL_REPO (or the default repository ID below).
 
 CNN preprocessing must match the training pipeline. The current implementation
 uses grayscale -> 48x48 -> per-image min-max normalization to [0, 255]
@@ -19,6 +22,7 @@ _preprocess_cnn_image() here and preprocess_fer_image() in the notebook together
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
 
@@ -28,6 +32,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+from huggingface_hub import hf_hub_download
 
 
 CNN_CLASSES = [
@@ -144,32 +149,58 @@ class FacialEmotionFusion:
         self.assets_dir = self.project_dir / "assets"
         self.results_dir = self.project_dir / "results"
 
-        cnn_candidates = [
-            self.model_dir / "appearance_cnn_fixed.keras",
-            self.model_dir / "appearance_cnn.keras",
-        ]
-        cnn_path = next((p for p in cnn_candidates if p.is_file()), None)
+        # Model artifacts are loaded locally when present. On a cloud deployment,
+        # missing artifacts are fetched from the configured Hugging Face repository.
+        repo_id = os.getenv(
+            "HF_MODEL_REPO",
+            "satyananada/facial-emotion-recognition-models",
+        ).strip()
+        hf_token = os.getenv("HF_TOKEN") or None
 
-        geometry_path = self.model_dir / "dlib_geometry_model_expanded.joblib"
-        predictor_path = self.assets_dir / "shape_predictor_68_face_landmarks.dat"
-        config_path = self.results_dir / "fusion_config.json"
+        def resolve_artifact(filename: str, local_candidates):
+            for candidate in local_candidates:
+                if candidate.is_file():
+                    return candidate
+            try:
+                downloaded_path = hf_hub_download(
+                    repo_id=repo_id,
+                    filename=filename,
+                    token=hf_token,
+                )
+                return Path(downloaded_path)
+            except Exception as exc:
+                raise RuntimeError(
+                    f"Could not load '{filename}'. Checked local project paths and "
+                    f"then tried Hugging Face repository '{repo_id}'. Verify the "
+                    "repository ID, that the file exists in its root, and that "
+                    "the repository is public or HF_TOKEN is configured. "
+                    f"Original error: {exc}"
+                ) from exc
 
-        required = [geometry_path, predictor_path, config_path]
-        missing = [str(path) for path in required if not path.is_file()]
-        if cnn_path is None:
-            missing.append(
-                str(self.model_dir / "appearance_cnn_fixed.keras")
-                + " (or appearance_cnn.keras)"
-            )
-        if missing:
-            raise FileNotFoundError(
-                "Required project files are missing:\n" + "\n".join(missing)
-            )
+        cnn_path = resolve_artifact(
+            "appearance_cnn_fixed.keras",
+            [
+                self.model_dir / "appearance_cnn_fixed.keras",
+                self.model_dir / "appearance_cnn.keras",
+            ],
+        )
+        geometry_path = resolve_artifact(
+            "dlib_geometry_model_expanded.joblib",
+            [self.model_dir / "dlib_geometry_model_expanded.joblib"],
+        )
+        predictor_path = resolve_artifact(
+            "shape_predictor_68_face_landmarks.dat",
+            [self.assets_dir / "shape_predictor_68_face_landmarks.dat"],
+        )
+        config_path = resolve_artifact(
+            "fusion_config.json",
+            [self.results_dir / "fusion_config.json"],
+        )
 
         # Inference only: no need to restore optimizer/loss compilation state.
-        self.cnn_model = tf.keras.models.load_model(cnn_path, compile=False)
+        self.cnn_model = tf.keras.models.load_model(str(cnn_path), compile=False)
 
-        geometry_artifact = joblib.load(geometry_path)
+        geometry_artifact = joblib.load(str(geometry_path))
         self.geometry_model = geometry_artifact["model"]
         self.geometry_scaler = geometry_artifact["scaler"]
         self.feature_columns = list(geometry_artifact["feature_columns"])
